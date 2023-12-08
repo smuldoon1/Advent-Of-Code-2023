@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 var input = File.ReadAllLines(@"F:\Advent-Of-Code-2023\AdventOfCode\Day8\input.txt");
 
 // Parse instructions and node dictionary
-var instructions = input[0];
+var instructions = input[0].Select(x => x == 'L' ? 0 : 1).ToArray();
 var nodes = new Dictionary<string, string[]>();
 for (int i = 2; i < input.Length; i++)
 {
@@ -19,9 +19,7 @@ var current = "AAA";
 var total1 = 0;
 do
 {
-    if (instructions[total1 % instructions.Length] == 'L') current = nodes[current][0];
-    else if (instructions[total1 % instructions.Length] == 'R') current = nodes[current][1];
-    total1++;
+    current = nodes[current][instructions[total1++ % instructions.Length]];
 }
 while (current != "ZZZ");
 Console.WriteLine($"Part 1: {total1}");
@@ -35,9 +33,7 @@ for (int s = 0; s < startNodes.Length; s++)
     var node = startNodes[s];
     do
     {
-        if (instructions[c % instructions.Length] == 'L') node = nodes[node][0];
-        else if (instructions[c % instructions.Length] == 'R') node = nodes[node][1];
-        c++;
+        node = nodes[node][instructions[c++ % instructions.Length]];
     }
     while (node[2] != 'Z');
     pathLengths[s] = c;

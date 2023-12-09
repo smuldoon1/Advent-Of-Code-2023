@@ -15,7 +15,7 @@ foreach (var sequence in input.Select(x => x.Split(' ').Select(y => int.Parse(y)
 {
     total2 += PredictPrevious(sequence).First();
 }
-Console.WriteLine($"Part 1: {total2}");
+Console.WriteLine($"Part 2: {total2}");
 
 static List<int> PredictNext(List<int> sequence)
 {

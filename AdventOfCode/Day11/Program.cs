@@ -6,15 +6,13 @@ var input = File.ReadAllLines(@"F:\Advent-Of-Code-2023\AdventOfCode\Day11\input.
 var galaxies = new List<(int x, int y)>();
 for (int i = 0; i < input.Length; i++)
 {
-    input[i]
+    galaxies.AddRange(input[i]
         .Select((x, index) => new { Char = x, Index = index })
         .Where(x => x.Char == '#')
-        .Select(x => (x.Index, i))
-        .ToList()
-        .ForEach(x => galaxies.Add(x));
+        .Select(x => (x.Index, i)));
 }
-var emptyRows = Enumerable.Range(0, input.Length - 1).Except(galaxies.Select(g => g.y));
-var emptyCols = Enumerable.Range(0, input.First().Length - 1).Except(galaxies.Select(g => g.x));
+var emptyRows = Enumerable.Range(0, input.Length).Except(galaxies.Select(g => g.y));
+var emptyCols = Enumerable.Range(0, input.First().Length).Except(galaxies.Select(g => g.x));
 
 Console.WriteLine($"Part 1: {CalculateDistances(1)}");
 Console.WriteLine($"Part 2: {CalculateDistances(999999)}");
